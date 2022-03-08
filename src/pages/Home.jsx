@@ -7,6 +7,7 @@ import { loadGames } from "../actions/gamesAction";
 import styled from "styled-components";
 import { motion, AnimatePresence, AnimateSharedLayout } from "framer-motion";
 import { useLocation } from "react-router-dom";
+import { fadeIn } from "../animations";
 // Components
 import Game from "../components/Game";
 
@@ -25,7 +26,7 @@ const Home = () => {
   );
 
   return (
-    <StyledGameList>
+    <StyledGameList variants={fadeIn} initial="hidden" animate="show">
       <AnimateSharedLayout type="crossfade">
         <AnimatePresence>
           {pathId && <GameDetail pathId={pathId} />}
@@ -90,12 +91,27 @@ const Home = () => {
 };
 
 const StyledGameList = styled(motion.div)`
+  align-items: center;
   padding: 0rem 5rem;
+  text-align: center;
   h2 {
     padding: 5rem 0rem;
   }
+  @media (max-width: 800px) {
+    padding: 0rem 1rem;
+  }
+  @media (max-width: 500px) {
+    padding: 0rem;
+  }
+  @media (max-width: 400px) {
+    h2 {
+      margin-left: 2rem;
+      font-size: 2.5rem;
+    }
+  }
 `;
 const StyledGames = styled(motion.div)`
+  align-items: center;
   min-height: 80vh;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));

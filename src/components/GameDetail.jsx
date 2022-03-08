@@ -154,6 +154,13 @@ const StyledDetail = styled(motion.div)`
   img {
     width: 100%;
   }
+  @media (max-width: 800px) {
+  }
+  @media (max-width: 550px) {
+    padding: 2rem 1rem;
+    width: 90%;
+    left: 5%;
+  }
 `;
 
 const StyledStats = styled(motion.div)`

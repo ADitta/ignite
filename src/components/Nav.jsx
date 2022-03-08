@@ -5,6 +5,7 @@ import igniteLogo from "../img/logo.svg";
 import { fetchSearch } from "../actions/gamesAction";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
+import { fadeIn } from "../animations";
 const Nav = () => {
   const dispatch = useDispatch();
   const [textInput, setTextInput] = useState("");
@@ -24,7 +25,7 @@ const Nav = () => {
     dispatch({ type: "CLEAR_SEARCHED" });
   };
   return (
-    <StyledNav>
+    <StyledNav variants={fadeIn} initial="hidden" animate="show">
       <StyledLogo onClick={clearSearched}>
         <img src={igniteLogo} alt="Logo" />
         <h1>Ignite</h1>
@@ -57,6 +58,36 @@ const StyledNav = styled(motion.nav)`
     color: white;
     border-top-right-radius: 0.2rem;
     border-bottom-right-radius: 0.2rem;
+  }
+  @media (max-width: 1000px) {
+    padding: 3rem 3rem;
+    input {
+      width: 60%;
+    }
+  }
+  @media (max-width: 500px) {
+    width: 100vw;
+    padding: 3rem 0.5rem;
+    form {
+      width: 100vw;
+    }
+    input {
+      width: 70%;
+    }
+    button {
+      padding: 0.5rem 1rem;
+    }
+  }
+  @media (max-width: 400px) {
+    margin-left: 3rem;
+    input {
+      width: 100%;
+    }
+    form {
+      button {
+        margin: 1rem 0rem;
+      }
+    }
   }
 `;
 
