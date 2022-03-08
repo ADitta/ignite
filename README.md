@@ -14,8 +14,7 @@ This is a website that uses rawg api to display information about upcoming, new 
 
 # ToDo
 
-- fix animation glitch when loading a game
-- add mobile responsivenesss
+- add a more vibrant color scheme
 
 # How to run this project locally
 
