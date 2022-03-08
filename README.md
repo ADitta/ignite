@@ -10,7 +10,7 @@
 
 # Description
 
-This is a website that uses rawg api to display information about upcoming, new and currently popular games. This is currently a work in progress with more features to be implemented.
+This is a website that uses rawg api to display information about upcoming, new and currently popular games. This is currently a work in progress with more features to be implemented. This website was developed using React.js, Redux, Styled Components and Framer Motion
 
 # ToDo
 
