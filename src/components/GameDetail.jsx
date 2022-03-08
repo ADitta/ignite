@@ -7,9 +7,22 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 // Utils
 import { smallImage } from "../utils";
+
+// Images
+import playstation from "../img/playstation.svg";
+import steam from "../img/steam.svg";
+import xbox from "../img/xbox.svg";
+import nintendo from "../img/nintendo.svg";
+import apple from "../img/apple.svg";
+import gamepad from "../img/gamepad.svg";
+// Star images
+import starEmpty from "../img/star-empty.png";
+import starFull from "../img/star-full.png";
+
 const GameDetail = ({ pathId }) => {
   // Exit Detail
   const navigate = useNavigate();
+
   const exitDetailHandler = (e) => {
     const element = e.target;
     if (element.classList.contains("shadow")) {
@@ -17,6 +30,43 @@ const GameDetail = ({ pathId }) => {
       navigate("/");
     }
   };
+  // Get Stars
+  const getStars = () => {
+    const stars = [];
+    const rating = Math.floor(game.rating);
+    for (let i = 1; i <= 5; i++) {
+      if (i <= rating) {
+        stars.push(<img alt="star" key={i} src={starFull} />);
+      } else {
+        stars.push(<img alt="star" key={i} src={starEmpty} />);
+      }
+    }
+    return stars;
+  };
+  //  Get platform images
+  const getPlatform = (platform) => {
+    switch (platform) {
+      case "PlayStation 4":
+        return playstation;
+      case "PlayStation 5":
+        return playstation;
+      case "Xbox One":
+        return xbox;
+      case "Xbox S":
+        return xbox;
+      case "Xbox Series S/X":
+        return xbox;
+      case "PC":
+        return steam;
+      case "Nintendo Switch":
+        return nintendo;
+      case "iOS":
+        return apple;
+      default:
+        return gamepad;
+    }
+  };
+
   // Data
   const { screen, game, isLoading } = useSelector((state) => state.detail);
   return (
@@ -28,15 +78,19 @@ const GameDetail = ({ pathId }) => {
               <div className="rating">
                 <motion.h3 layoutId={`title ${pathId}`}>{game.name}</motion.h3>
                 <p>Rating: {game.rating}</p>
+                {getStars()}
               </div>
               <StyledInfo>
                 <h3>Platforms</h3>
                 <StyledPlatforms>
                   {game.platforms &&
                     game.platforms.map((platform) => (
-                      <h3 key={platform.platform.id}>
-                        {platform.platform.name}
-                      </h3>
+                      <img
+                        key={platform.platform.id}
+                        src={getPlatform(platform.platform.name)}
+                        title={platform.platform.name}
+                        alt={platform.platform.name}
+                      />
                     ))}
                 </StyledPlatforms>
               </StyledInfo>
@@ -70,7 +124,7 @@ const GameDetail = ({ pathId }) => {
 
 const StyledCardShadow = styled(motion.div)`
   width: 100%;
-  z-index: 2;
+  z-index: 5;
   min-height: 100vh;
   overflow-y: scroll;
   background: rgba(0, 0, 0, 0.5);
@@ -95,6 +149,7 @@ const StyledDetail = styled(motion.div)`
   position: absolute;
   left: 10%;
   background-color: white;
+  z-index: 10;
   color: black;
   img {
     width: 100%;
@@ -105,6 +160,11 @@ const StyledStats = styled(motion.div)`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  img {
+    width: 2rem;
+    height: 2rem;
+    display: inline;
+  }
 `;
 const StyledInfo = styled(motion.div)`
   text-align: center;
@@ -112,8 +172,10 @@ const StyledInfo = styled(motion.div)`
 const StyledPlatforms = styled(motion.div)`
   display: flex;
   justify-content: space-evenly;
+  flex-wrap: wrap;
   img {
-    margin-left: 3rem;
+    margin: 0rem 0 1rem 2rem;
+    width: 2rem;
   }
 `;
 const StyledMedia = styled(motion.div)`
